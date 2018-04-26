@@ -1,0 +1,48 @@
+ H8/3048 Series Advanced Mode Monitor Ver. 3.0A
+ Copyright (C) 2003 Renesas Technology Corp.
+
+: da ff200 ff210
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF200   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+  FF206   7A00FF0088CC          MOV.L      #H'FF0088CC:32,ER0
+  FF20C   01006DF0              PUSH.L     ER0
+  FF210   01006D72              POP.L      ER2
+: r
+  PC=000000  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=00000000  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: .pc
+  PC=000000  ?
+ff200
+  CCR=80  ?
+.
+:
+s
+  PC=0FF206  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=00000000  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF200   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+: s
+  PC=0FF20C  CCR=88:I...N...  SP=000FFF00
+  ER0=FF0088CC  ER1=00000000  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF206   7A00FF0088CC          MOV.L      #H'FF0088CC:32,ER0
+: s
+  PC=0FF210  CCR=88:I...N...  SP=000FFEFC
+  ER0=FF0088CC  ER1=00000000  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFEFC
+  FF20C   01006DF0              PUSH.L     ER0
+: d ffef0 fff00
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FFEF0   FF FF DF FF 88 88 28 1A  00 0F F2 12 FF 00 88 CC   "......(........."
+  FFF00   FF                                                 "."
+: s
+  PC=0FF214  CCR=88:I...N...  SP=000FFF00
+  ER0=FF0088CC  ER1=00000000  ER2=FF0088CC  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF210   01006D72              POP.L      ER2
+: d ffef0 fff00
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FFEF0   FF FF DF FF 88 88 28 1A  88 88 28 1A 00 0F F2 16   "......(...(....."
+  FFF00   FF                                                 "."
+:

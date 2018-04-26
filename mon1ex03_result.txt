@@ -1,0 +1,128 @@
+
+
+ H8/3048 Series Advanced Mode Monitor Ver. 3.0A
+ Copyright (C) 2003 Renesas Technology Corp.
+
+:  a   f f 2 0 0
+:
+a ff200
+  FF200   >
+bra ff300
+  FF204   >
+.
+:
+a ff200
+  FF200   >
+bra ff300:8
+  ********  Invalid Parameter  ********
+: a ff200
+  FF200   >
+jmp @ff300:24
+  FF204   >
+.
+:
+a ff300
+  FF300   >
+jmp @ff310:24
+  FF304   >
+.
+:
+a ff310
+  FF310   >
+bra ff280:16
+  FF314   >
+.
+:
+a ff280
+  FF280   >
+bra ff280:16
+  FF284   >
+.
+:
+d ff200
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF200   5A 0F F3 00 7F D7 FF DF  FF FF FA FF FB FF FF F7   "Z..............."
+  FF210   96 7D 7F FA F9 FF FF 7E  EF CF FF FF BF FF 5E FE   ".}.....~......^."
+  FF220   FF FF FF FD FF FF FF FF  EF FF FF FB CF 7F 7F FF   "................"
+  FF230   A4 FF BF FF FF BF EA 3B  DD F6 FF 5F FB FB D9 FF   ".......;..._...."
+  FF240   FF BF FF FF FF FF 77 FB  F7 FF FF FC D7 FF FF 7D   "......w........}"
+  FF250   FF FB DF FF E7 CF DF FF  7F ED B5 FF FF 5F EF E7   "............._.."
+  FF260   BA F9 DF FF EF FD D7 FF  FE FD FF FE FF FF FE FD   "................"
+  FF270   FF FD EF FF B7 F1 FF FF  BD FF DE FD FE 7F FF FB   "................"
+  FF280   58 00 FF FC FF FF FF FF  FF FB FB FF DB FF FF FF   "X..............."
+  FF290   7F 2F FE FF FF BF BF BF  FD FF FF 3F FF DB FB FF   "./.........?...."
+  FF2A0   FD EF FF FF FF FE BF FF  FB FF FF 6E FF FF F3 FF   "...........n...."
+  FF2B0   FD CB FF 7F FF DF FC FF  FF AF FF 7F FF FD F7 BF   "................"
+  FF2C0   FD DF FF AF 7F FF DB FF  FF F5 EF DF FF FF FF FF   "................"
+  FF2D0   DF FF FF FF 4D FF FF BF  E7 7F DF FD FE FD FF FF   "....M..........."
+  FF2E0   FF FF BF FF FF FF DF FF  EF EF FD DF FB FF FF FB   "................"
+  FF2F0   BE F7 F7 BF FF FF FC FF  DF FA FF FF DF FD EF FF   "................"
+: d ff200 ff204
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF200   5A 0F F3 00 7F                                     "Z...."
+: d ff310 ff314
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF310   58 00 FF 6C FF                                     "X..l."
+: da ff200 ff204
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF200   5A0FF300              JMP        @H'FF300:24
+  FF204   7FD7                  .DATA.W    H'7FD7
+: da ff200
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF200   5A0FF300              JMP        @H'FF300:24
+  FF204   7FD7                  .DATA.W    H'7FD7
+  FF206   FFDF                  MOV.B      #H'DF:8,R7L
+  FF208   FFFF                  MOV.B      #H'FF:8,R7L
+  FF20A   FAFF                  MOV.B      #H'FF:8,R2L
+  FF20C   FBFF                  MOV.B      #H'FF:8,R3L
+  FF20E   FFF7                  MOV.B      #H'F7:8,R7L
+  FF210   967D                  ADDX       #H'7D:8,R6H
+  FF212   7FFA                  .DATA.W    H'7FFA
+  FF214   F9FF                  MOV.B      #H'FF:8,R1L
+  FF216   FF7E                  MOV.B      #H'7E:8,R7L
+  FF218   EFCF                  AND.B      #H'CF:8,R7L
+  FF21A   FFFF                  MOV.B      #H'FF:8,R7L
+  FF21C   BFFF                  SUBX       #H'FF:8,R7L
+  FF21E   5EFEFFFF              JSR        @H'EFFFF:24
+  FF222   FFFD                  MOV.B      #H'FD:8,R7L
+: da ff310 ff310
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF310   5800FF6C              BRA        FF280:16
+: da ff300 ff300
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF300   5A0FF310              JMP        @H'FF310:24
+: da ff280 ff280
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF280   5800FFFC              BRA        FF280:16
+: .pc
+  PC=000000  ?
+ff200
+  CCR=80  ?
+.
+:
+s
+  PC=0FF300  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=00000000  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF200   5A0FF300              JMP        @H'FF300:24
+: s
+  PC=0FF310  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=00000000  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF300   5A0FF310              JMP        @H'FF310:24
+: s
+  PC=0FF280  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=00000000  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF310   5800FF6C              BRA        FF280:16
+: s
+  PC=0FF280  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=00000000  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF280   5800FFFC              BRA        FF280:16
+: s
+  PC=0FF280  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=00000000  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF280   5800FFFC              BRA        FF280:16
+:
