@@ -1,0 +1,143 @@
+C2asm02.txt
+s15023 岩崎悠紀
+
+1．課題
+次のＣプログラムを，アセンブリプログラムに変換して，主要部分を説明しなさい。また4つの関数がどのようにアセンブリ言語に変換されているか違いを調べ，気づいた事柄・考察した事柄を述べなさい。（C2asm02.txt）
+ヒント　関数test1では，どうせ何も使われないlocalsumの値の取扱いは．．．
+
+2．使用したプログラム
+int globalsum=0;
+
+void test1(void)
+{
+    int localsum=0;
+    int i;
+    for (i=1;i<=10;i++) {
+        localsum+=i;
+    }
+}
+
+int test2(void)
+{
+    int localsum=0;
+    int i;
+    for (i=1;i<=10;i++) {
+        localsum+=i;
+    }
+    return localsum;
+}
+
+void test3(void)
+{
+    static int staticsum;
+    int i;
+    for (i=1;i<=10;i++) {
+        staticsum+=i;
+    }
+}
+
+void test4(void)
+{
+    int i;
+    for (i=1;i<=10;i++) {
+        globalsum+=i;
+    }
+}
+
+3．関心を持ったこと
+コンパイルする際に，無駄な処理を入れてしまうことがコンパイラにはあるそうなので，人が直してあげることを，hand optimizeというらしい．
+
+4．考察
+ーーーーーーーーーー実行結果ーーーーーーーーーー
+          .CPU        300HA
+          .EXPORT     _globalsum
+          .EXPORT     _test1
+          .EXPORT     _test2
+          .EXPORT     _test3
+          .EXPORT     _test4
+          .SECTION    P,CODE,ALIGN=2
+;*** File C2asm02.c , Line 3     ; block
+_test1:                          ; function: test1
+;*** File C2asm02.c , Line 4     ; block
+;*** File C2asm02.c , Line 7     ; expression statement
+          MOV.W       #1:16,R0
+;*** File C2asm02.c , Line 7     ; do
+L22:                              
+;*** File C2asm02.c , Line 7     ; block
+;*** File C2asm02.c , Line 7     ; expression statement
+          INC.W       #1,R0
+;*** File C2asm02.c , Line 7     ; expression statement
+          CMP.W       #10:16,R0
+          BLE         L22:8
+;*** File C2asm02.c , Line 10    ; block
+          RTS
+;*** File C2asm02.c , Line 12    ; block
+_test2:                          ; function: test2
+;*** File C2asm02.c , Line 13    ; block
+;*** File C2asm02.c , Line 14    ; expression statement
+          SUB.W       E0,E0
+;*** File C2asm02.c , Line 16    ; expression statement
+          MOV.W       #1:16,R0
+;*** File C2asm02.c , Line 16    ; do
+L23:                              
+;*** File C2asm02.c , Line 16    ; block
+;*** File C2asm02.c , Line 17    ; expression statement
+          ADD.W       R0,E0
+;*** File C2asm02.c , Line 16    ; expression statement
+          INC.W       #1,R0
+;*** File C2asm02.c , Line 16    ; expression statement
+          CMP.W       #10:16,R0
+          BLE         L23:8
+;*** File C2asm02.c , Line 19    ; return
+          MOV.W       E0,R0
+;*** File C2asm02.c , Line 20    ; block
+          RTS
+;*** File C2asm02.c , Line 22    ; block
+_test3:                          ; function: test3
+;*** File C2asm02.c , Line 23    ; block
+          MOV.L       #L14:32,ER1
+;*** File C2asm02.c , Line 26    ; expression statement
+          MOV.W       #1:16,E0
+;*** File C2asm02.c , Line 26    ; do
+L25:                              
+;*** File C2asm02.c , Line 26    ; block
+;*** File C2asm02.c , Line 27    ; expression statement
+          MOV.W       @ER1,R0
+          ADD.W       E0,R0
+          MOV.W       R0,@ER1
+;*** File C2asm02.c , Line 26    ; expression statement
+          INC.W       #1,E0
+;*** File C2asm02.c , Line 26    ; expression statement
+          CMP.W       #10:16,E0
+          BLE         L25:8
+;*** File C2asm02.c , Line 29    ; block
+          RTS
+;*** File C2asm02.c , Line 31    ; block
+_test4:                          ; function: test4
+;*** File C2asm02.c , Line 32    ; block
+          MOV.L       #_globalsum:32,ER1
+;*** File C2asm02.c , Line 34    ; expression statement
+          MOV.W       #1:16,E0
+;*** File C2asm02.c , Line 34    ; do
+L26:                              
+;*** File C2asm02.c , Line 34    ; block
+;*** File C2asm02.c , Line 35    ; expression statement
+          MOV.W       @ER1,R0
+          ADD.W       E0,R0
+          MOV.W       R0,@ER1
+;*** File C2asm02.c , Line 34    ; expression statement
+          INC.W       #1,E0
+;*** File C2asm02.c , Line 34    ; expression statement
+          CMP.W       #10:16,E0
+          BLE         L26:8
+;*** File C2asm02.c , Line 37    ; block
+          RTS
+          .SECTION    D,DATA,ALIGN=2
+_globalsum:                      ; static: globalsum
+          .DATA.W     H'0000
+          .SECTION    B,DATA,ALIGN=2
+L14:                             ; static: staticsum
+          .RES.W      1
+          .END
+ーーーーーーーーーーーーーーーーーーーーーーーー
+　この実験より，
