@@ -1,0 +1,154 @@
+mon2ex03.txt
+s15023 岩崎悠紀
+
+１．課題
+　上記のプログラムを動かして，LED0の点滅を確かめなさい。
+　次に，LED1が点滅するように書き換え動作させ，LED1の点滅を確かめなさい。
+レポートには，実行の様子を貼り付け，どの位置で点灯し，消灯するのか示して，
+考察しなさい。
+　P5DDRのアドレスが，0xFFFC8であるという記述をハードウェアマニュアルから見つけ，
+　そのページを考察に含めなさい。
+
+２．使用したプログラム
+<ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+FF130   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+FF136   F901                  MOV.B      #H'01:8,R1L
+FF138   6AA9000FFFC8          MOV.B      R1L,@H'FFFC8:24
+FF13E   F801                  MOV.B      #H'01:8,R0L
+FF140   6AA8000FFFCA          MOV.B      R0L,@H'FFFCA:24
+FF146   F800                  MOV.B      #H'00:8,R0L
+FF148   6AA8000FFFCA          MOV.B      R0L,@H'FFFCA:24
+FF14E   40EE                  BRA        FF13E:8
+FF150   7FFB                  .DATA.W    H'7FFB
+FF152   BFFF                  SUBX       #H'FF:8,R7L
+FF154   DFFF                  XOR.B      #H'FF:8,R7L
+FF156   FFFF                  MOV.B      #H'FF:8,R7L
+FF158   F3FE                  MOV.B      #H'FE:8,R3H
+FF15A   FFF7                  MOV.B      #H'F7:8,R7L
+FF15C   FFFF                  MOV.B      #H'FF:8,R7L
+FF15E   FFFF                  MOV.B      #H'FF:8,R7L
+
+３．失敗点
+　はじめ，LED1を光らせたい時に，0x1を，0x10に変えてしまっていたが，これは16進数なので，0x1を0x2に変えるべきであったと気付いた．
+
+４．考察
+ーーーーーーーーーーー実験結果ーーーーーーーーーーー
+: da ff130
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF130   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+  FF136   F901                  MOV.B      #H'01:8,R1L
+  FF138   6AA9000FFFC8          MOV.B      R1L,@H'FFFC8:24
+  FF13E   F801                  MOV.B      #H'01:8,R0L
+  FF140   6AA8000FFFCA          MOV.B      R0L,@H'FFFCA:24
+  FF146   F800                  MOV.B      #H'00:8,R0L
+  FF148   6AA8000FFFCA          MOV.B      R0L,@H'FFFCA:24
+  FF14E   40EE                  BRA        FF13E:8
+  FF150   7FFB                  .DATA.W    H'7FFB
+  FF152   BFFF                  SUBX       #H'FF:8,R7L
+  FF154   DFFF                  XOR.B      #H'FF:8,R7L
+  FF156   FFFF                  MOV.B      #H'FF:8,R7L
+  FF158   F3FE                  MOV.B      #H'FE:8,R3H
+  FF15A   FFF7                  MOV.B      #H'F7:8,R7L
+  FF15C   FFFF                  MOV.B      #H'FF:8,R7L
+  FF15E   FFFF                  MOV.B      #H'FF:8,R7L
+: s
+  PC=0FF136  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=00000000  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF130   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+: s
+  PC=0FF138  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=00000001  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF136   F901                  MOV.B      #H'01:8,R1L
+: s
+  PC=0FF13E  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=00000001  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF138   6AA9000FFFC8          MOV.B      R1L,@H'FFFC8:24
+: s
+  PC=0FF140  CCR=80:I.......  SP=000FFF00
+  ER0=00000001  ER1=00000001  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF13E   F801                  MOV.B      #H'01:8,R0L
+: s
+  PC=0FF146  CCR=80:I.......  SP=000FFF00
+  ER0=00000001  ER1=00000001  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF140   6AA8000FFFCA          MOV.B      R0L,@H'FFFCA:24
+: s
+  PC=0FF148  CCR=84:I....Z..  SP=000FFF00
+  ER0=00000000  ER1=00000001  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF146   F800                  MOV.B      #H'00:8,R0L
+: s
+  PC=0FF14E  CCR=84:I....Z..  SP=000FFF00
+  ER0=00000000  ER1=00000001  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF148   6AA8000FFFCA          MOV.B      R0L,@H'FFFCA:24
+: l
+  Top Address=FF030
+  End Address=FF14F
+: da ff130
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF130   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+  FF136   F902                  MOV.B      #H'02:8,R1L
+  FF138   6AA9000FFFC8          MOV.B      R1L,@H'FFFC8:24
+  FF13E   F802                  MOV.B      #H'02:8,R0L
+  FF140   6AA8000FFFCA          MOV.B      R0L,@H'FFFCA:24
+  FF146   F800                  MOV.B      #H'00:8,R0L
+  FF148   6AA8000FFFCA          MOV.B      R0L,@H'FFFCA:24
+  FF14E   40EE                  BRA        FF13E:8
+  FF150   7FFB                  .DATA.W    H'7FFB
+  FF152   BFFF                  SUBX       #H'FF:8,R7L
+  FF154   DFFF                  XOR.B      #H'FF:8,R7L
+  FF156   FFFF                  MOV.B      #H'FF:8,R7L
+  FF158   F3FE                  MOV.B      #H'FE:8,R3H
+  FF15A   FFF7                  MOV.B      #H'F7:8,R7L
+  FF15C   FFFF                  MOV.B      #H'FF:8,R7L
+  FF15E   FFFF                  MOV.B      #H'FF:8,R7L
+: .pc
+  PC=0FF130  ?  .
+: s
+  PC=0FF136  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=00000000  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF130   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+: s
+  PC=0FF138  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=00000002  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF136   F902                  MOV.B      #H'02:8,R1L
+: s
+  PC=0FF13E  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=00000002  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF138   6AA9000FFFC8          MOV.B      R1L,@H'FFFC8:24
+: s
+  PC=0FF140  CCR=80:I.......  SP=000FFF00
+  ER0=00000002  ER1=00000002  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF13E   F802                  MOV.B      #H'02:8,R0L
+: s
+  PC=0FF146  CCR=80:I.......  SP=000FFF00
+  ER0=00000002  ER1=00000002  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF140   6AA8000FFFCA          MOV.B      R0L,@H'FFFCA:24
+: s
+  PC=0FF148  CCR=84:I....Z..  SP=000FFF00
+  ER0=00000000  ER1=00000002  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF146   F800                  MOV.B      #H'00:8,R0L
+: s
+  PC=0FF14E  CCR=84:I....Z..  SP=000FFF00
+  ER0=00000000  ER1=00000002  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+  FF148   6AA8000FFFCA          MOV.B      R0L,@H'FFFCA:24
+:
+ーーーーーーーーーーーーーーーーーーーーーーーーーー
+　LED0が点灯したのは，MOV.B R0L,@H'FFFCA:24の部分を実行した時であった．
+　また消灯したのは，0FFFCAに0x0を入れた時であった．
+　LED1が点灯したのは，0FFFCAに0x2(0b10)を入れた時であった．
+　また消灯したのは，0FFFCAに0x0を入れた時であった．
+　ハードウェアマニュアルにP5DDRの内容が書いてあったのは，262ページ付近のポート５というところであった．
+

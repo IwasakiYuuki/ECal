@@ -1,0 +1,159 @@
+: L
+  Top Address=FF030
+  End Address=FF21B
+: .pc
+  PC=0FF200  ?  ff200
+  CCR=80  ?  .
+: da ff200
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF200   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+  FF206   7A01000FF800          MOV.L      #H'000FF800:32,ER1
+  FF20C   FACC                  MOV.B      #H'CC:8,R2L
+  FF20E   79000200              MOV.W      #H'0200:16,R0
+  FF212   689A                  MOV.B      R2L,@ER1
+  FF214   0B71                  INC.L      #1,ER1
+  FF216   1B50                  DEC.W      #1,R0
+  FF218   46F8                  BNE        FF212:8
+  FF21A   40FE                  BRA        FF21A:8
+  FF21C   40FE                  BRA        FF21C:8
+  FF21E   5EFFFFFF              JSR        @H'FFFFF:24
+  FF222   7FFD                  .DATA.W    H'7FFD
+  FF224   FFFF                  MOV.B      #H'FF:8,R7L
+  FF226   FFFF                  MOV.B      #H'FF:8,R7L
+  FF228   EFBF                  AND.B      #H'BF:8,R7L
+  FF22A   FFFB                  MOV.B      #H'FB:8,R7L
+: b ff21a
+: r
+  PC=0FF200  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=00000000  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ffa0f
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF810   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF820   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF830   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF840   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF850   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF860   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF870   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF880   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF890   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF8A0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF8B0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF8C0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF8D0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF8E0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF8F0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF900   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF910   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF920   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF930   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF940   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF950   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF960   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF970   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF980   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF990   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF9A0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF9B0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF9C0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF9D0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF9E0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF9F0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FFA00   BB BB BB BB BB BB BB BB  BB BB BB BB BB BB BB BB   "................"
+: f ff800 ffa0f AA
+: d ff800 ffa0f
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF810   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF820   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF830   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF840   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF850   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF860   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF870   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF880   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF890   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF8A0   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF8B0   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF8C0   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF8D0   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF8E0   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF8F0   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF900   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF910   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF920   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF930   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF940   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF950   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF960   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF970   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF980   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF990   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF9A0   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF9B0   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF9C0   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF9D0   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF9E0   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FF9F0   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+  FFA00   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+: g
+  Break at PC=FF21A
+  PC=0FF21A  CCR=84:I....Z..  SP=000FFF00
+  ER0=00000000  ER1=000FFA00  ER2=000000CC  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ffa0f
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF810   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF820   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF830   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF840   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF850   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF860   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF870   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF880   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF890   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF8A0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF8B0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF8C0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF8D0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF8E0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF8F0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF900   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF910   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF920   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF930   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF940   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF950   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF960   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF970   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF980   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF990   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF9A0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF9B0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF9C0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF9D0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF9E0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FF9F0   CC CC CC CC CC CC CC CC  CC CC CC CC CC CC CC CC   "................"
+  FFA00   AA AA AA AA AA AA AA AA  AA AA AA AA AA AA AA AA   "................"
+: da ff200
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF200   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+  FF206   7A01000FF800          MOV.L      #H'000FF800:32,ER1
+  FF20C   FACC                  MOV.B      #H'CC:8,R2L
+  FF20E   79000200              MOV.W      #H'0200:16,R0
+  FF212   689A                  MOV.B      R2L,@ER1
+  FF214   0B71                  INC.L      #1,ER1
+  FF216   1B50                  DEC.W      #1,R0
+  FF218   46F8                  BNE        FF212:8
+  FF21A   40FE                  BRA        FF21A:8
+  FF21C   40FE                  BRA        FF21C:8
+  FF21E   5EFFFFFF              JSR        @H'FFFFF:24
+  FF222   7FFD                  .DATA.W    H'7FFD
+  FF224   FFFF                  MOV.B      #H'FF:8,R7L
+  FF226   FFFF                  MOV.B      #H'FF:8,R7L
+  FF228   EFBF                  AND.B      #H'BF:8,R7L
+  FF22A   FFFB                  MOV.B      #H'FB:8,R7L
+:

@@ -1,0 +1,126 @@
+
+
+ H8/3048 Series Advanced Mode Monitor Ver. 3.0A
+ Copyright (C) 2003 Renesas Technology Corp.
+
+: l
+  Top Address=FF030
+  End Address=FF24B
+: da ff200
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF200   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+  FF206   7A01000FF800          MOV.L      #H'000FF800:32,ER1
+  FF20C   F880                  MOV.B      #H'80:8,R0L
+  FF20E   F080                  MOV.B      #H'80:8,R0H
+  FF210   6898                  MOV.B      R0L,@ER1
+  FF212   0B71                  INC.L      #1,ER1
+  FF214   1A00                  DEC.B      R0H
+  FF216   46F8                  BNE        FF210:8
+  FF218   7A01000FF800          MOV.L      #H'000FF800:32,ER1
+  FF21E   7A02000FF900          MOV.L      #H'000FF900:32,ER2
+  FF224   F080                  MOV.B      #H'80:8,R0H
+  FF226   6818                  MOV.B      @ER1,R0L
+  FF228   0B71                  INC.L      #1,ER1
+  FF22A   68A8                  MOV.B      R0L,@ER2
+  FF22C   0B72                  INC.L      #1,ER2
+  FF22E   1A00                  DEC.B      R0H
+: da ff200 ff24d
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF200   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+  FF206   7A01000FF800          MOV.L      #H'000FF800:32,ER1
+  FF20C   F880                  MOV.B      #H'80:8,R0L
+  FF20E   F080                  MOV.B      #H'80:8,R0H
+  FF210   6898                  MOV.B      R0L,@ER1
+  FF212   0B71                  INC.L      #1,ER1
+  FF214   1A00                  DEC.B      R0H
+  FF216   46F8                  BNE        FF210:8
+  FF218   7A01000FF800          MOV.L      #H'000FF800:32,ER1
+  FF21E   7A02000FF900          MOV.L      #H'000FF900:32,ER2
+  FF224   F080                  MOV.B      #H'80:8,R0H
+  FF226   6818                  MOV.B      @ER1,R0L
+  FF228   0B71                  INC.L      #1,ER1
+  FF22A   68A8                  MOV.B      R0L,@ER2
+  FF22C   0B72                  INC.L      #1,ER2
+  FF22E   1A00                  DEC.B      R0H
+  FF230   46F4                  BNE        FF226:8
+  FF232   7A02000FF900          MOV.L      #H'000FF900:32,ER2
+  FF238   7A03000FF200          MOV.L      #H'000FF200:32,ER3
+  FF23E   F060                  MOV.B      #H'60:8,R0H
+  FF240   6838                  MOV.B      @ER3,R0L
+  FF242   68A8                  MOV.B      R0L,@ER2
+  FF244   0B72                  INC.L      #1,ER2
+  FF246   0B73                  INC.L      #1,ER3
+  FF248   1A00                  DEC.B      R0H
+  FF24A   46F4                  BNE        FF240:8
+  FF24C   D7FF                  XOR.B      #H'FF:8,R7H
+: b ff24c
+: f ff800 ff88f 66
+: f ff900 ff98f 77
+: d ff800 ff98f
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   66 66 66 66 66 66 66 66  66 66 66 66 66 66 66 66   "ffffffffffffffff"
+  FF810   66 66 66 66 66 66 66 66  66 66 66 66 66 66 66 66   "ffffffffffffffff"
+  FF820   66 66 66 66 66 66 66 66  66 66 66 66 66 66 66 66   "ffffffffffffffff"
+  FF830   66 66 66 66 66 66 66 66  66 66 66 66 66 66 66 66   "ffffffffffffffff"
+  FF840   66 66 66 66 66 66 66 66  66 66 66 66 66 66 66 66   "ffffffffffffffff"
+  FF850   66 66 66 66 66 66 66 66  66 66 66 66 66 66 66 66   "ffffffffffffffff"
+  FF860   66 66 66 66 66 66 66 66  66 66 66 66 66 66 66 66   "ffffffffffffffff"
+  FF870   66 66 66 66 66 66 66 66  66 66 66 66 66 66 66 66   "ffffffffffffffff"
+  FF880   66 66 66 66 66 66 66 66  66 66 66 66 66 66 66 66   "ffffffffffffffff"
+  FF890   FD F7 FB DF FF CB FF FF  FF 7F D7 DF FF DF F5 DF   "................"
+  FF8A0   BF FF FF FF A7 FF 7F 7F  FF FF FF 7F F7 94 FF EF   "................"
+  FF8B0   FF FD 6F FD F7 FB FF DF  FF FC 7A EF FF FF E7 FF   "..o.......z....."
+  FF8C0   7F FF FF FF BF 9F FF DF  FF FF FF FF FB F7 FF F7   "................"
+  FF8D0   F7 FB BF FF FB FF FF FF  FF 77 BF FF FF FF FF FF   ".........w......"
+  FF8E0   FF FB FF DF FF FF FF DF  FB BE FF FF FF 7F FF FF   "................"
+  FF8F0   BF FF FD FF 7F 7E EF FB  FF FE FF ED D7 F7 FE DF   ".....~.........."
+  FF900   77 77 77 77 77 77 77 77  77 77 77 77 77 77 77 77   "wwwwwwwwwwwwwwww"
+  FF910   77 77 77 77 77 77 77 77  77 77 77 77 77 77 77 77   "wwwwwwwwwwwwwwww"
+  FF920   77 77 77 77 77 77 77 77  77 77 77 77 77 77 77 77   "wwwwwwwwwwwwwwww"
+  FF930   77 77 77 77 77 77 77 77  77 77 77 77 77 77 77 77   "wwwwwwwwwwwwwwww"
+  FF940   77 77 77 77 77 77 77 77  77 77 77 77 77 77 77 77   "wwwwwwwwwwwwwwww"
+  FF950   77 77 77 77 77 77 77 77  77 77 77 77 77 77 77 77   "wwwwwwwwwwwwwwww"
+  FF960   77 77 77 77 77 77 77 77  77 77 77 77 77 77 77 77   "wwwwwwwwwwwwwwww"
+  FF970   77 77 77 77 77 77 77 77  77 77 77 77 77 77 77 77   "wwwwwwwwwwwwwwww"
+  FF980   77 77 77 77 77 77 77 77  77 77 77 77 77 77 77 77   "wwwwwwwwwwwwwwww"
+: g
+  Break at PC=FF24C
+  PC=0FF24C  CCR=84:I....Z..  SP=000FFF00
+  ER0=000000E7  ER1=000FF880  ER2=000FF960  ER3=000FF260
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ff98f
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   80 80 80 80 80 80 80 80  80 80 80 80 80 80 80 80   "................"
+  FF810   80 80 80 80 80 80 80 80  80 80 80 80 80 80 80 80   "................"
+  FF820   80 80 80 80 80 80 80 80  80 80 80 80 80 80 80 80   "................"
+  FF830   80 80 80 80 80 80 80 80  80 80 80 80 80 80 80 80   "................"
+  FF840   80 80 80 80 80 80 80 80  80 80 80 80 80 80 80 80   "................"
+  FF850   80 80 80 80 80 80 80 80  80 80 80 80 80 80 80 80   "................"
+  FF860   80 80 80 80 80 80 80 80  80 80 80 80 80 80 80 80   "................"
+  FF870   80 80 80 80 80 80 80 80  80 80 80 80 80 80 80 80   "................"
+  FF880   66 66 66 66 66 66 66 66  66 66 66 66 66 66 66 66   "ffffffffffffffff"
+  FF890   FD F7 FB DF FF CB FF FF  FF 7F D7 DF FF DF F5 DF   "................"
+  FF8A0   BF FF FF FF A7 FF 7F 7F  FF FF FF 7F F7 94 FF EF   "................"
+  FF8B0   FF FD 6F FD F7 FB FF DF  FF FC 7A EF FF FF E7 FF   "..o.......z....."
+  FF8C0   7F FF FF FF BF 9F FF DF  FF FF FF FF FB F7 FF F7   "................"
+  FF8D0   F7 FB BF FF FB FF FF FF  FF 77 BF FF FF FF FF FF   ".........w......"
+  FF8E0   FF FB FF DF FF FF FF DF  FB BE FF FF FF 7F FF FF   "................"
+  FF8F0   BF FF FD FF 7F 7E EF FB  FF FE FF ED D7 F7 FE DF   ".....~.........."
+  FF900   7A 07 00 0F FF 00 7A 01  00 0F F8 00 F8 80 F0 80   "z.....z........."
+  FF910   68 98 0B 71 1A 00 46 F8  7A 01 00 0F F8 00 7A 02   "h..q..F.z.....z."
+  FF920   00 0F F9 00 F0 80 68 18  0B 71 68 A8 0B 72 1A 00   "......h..qh..r.."
+  FF930   46 F4 7A 02 00 0F F9 00  7A 03 00 0F F2 00 F0 60   "F.z.....z......`"
+  FF940   68 38 68 A8 0B 72 0B 73  1A 00 46 F4 5F 08 FF 7F   "h8h..r.s..F._..."
+  FF950   FF FB DF FF E7 CF D7 FF  7F ED B5 FF FF 5F EF E7   "............._.."
+  FF960   80 80 80 80 80 80 80 80  80 80 80 80 80 80 80 80   "................"
+  FF970   80 80 80 80 80 80 80 80  80 80 80 80 80 80 80 80   "................"
+  FF980   77 77 77 77 77 77 77 77  77 77 77 77 77 77 77 77   "wwwwwwwwwwwwwwww"
+: d ff200 ff25f
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF200   7A 07 00 0F FF 00 7A 01  00 0F F8 00 F8 80 F0 80   "z.....z........."
+  FF210   68 98 0B 71 1A 00 46 F8  7A 01 00 0F F8 00 7A 02   "h..q..F.z.....z."
+  FF220   00 0F F9 00 F0 80 68 18  0B 71 68 A8 0B 72 1A 00   "......h..qh..r.."
+  FF230   46 F4 7A 02 00 0F F9 00  7A 03 00 0F F2 00 F0 60   "F.z.....z......`"
+  FF240   68 38 68 A8 0B 72 0B 73  1A 00 46 F4 D7 FF FF 7F   "h8h..r.s..F....."
+  FF250   FF FB DF FF E7 CF D7 FF  7F ED B5 FF FF 5F EF E7   "............._.."
+:
