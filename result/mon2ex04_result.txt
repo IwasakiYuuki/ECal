@@ -1,0 +1,46 @@
+
+
+ H8/3048 Series Advanced Mode Monitor Ver. 3.0A
+ Copyright (C) 2003 Renesas Technology Corp.
+
+: m fffc1 00
+  ********  Invalid End Address  ********
+: m
+  ********  Invalid Parameter  ********
+: m fffc1
+  FFFC1   FF  ?  00
+  FFFC2   FF  ?  .
+: m fffd8
+  FFFD8   00  ?  ff
+  FFFD9   FF  ?  .
+: d fffc3
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FFFC3   FF FF FF FF EF FF FF FC  FB FF FF 7F FD FF FF FF   "................"
+  FFFD3   FF FF FF F1 FF FF FF 00  F0 00 00 1F 1F 00 00 00   "................"
+  FFFE3   00 00 00 00 00 00 7E FF  FF FF FF F3 FF FF C7 0B   "......~........."
+  FFFF3   FE 00 00 0F FF 00 00 FF  FF FF FF FF FF            "............."
+: d fffc3
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FFFC3   7F FF FF FF CF FF FF F8  FB FF FF 7F FD FF FF FF   "................"
+  FFFD3   FF FF FF F1 FF FF FF 00  F0 00 00 1F 1F 00 00 00   "................"
+  FFFE3   00 00 00 00 00 00 7E FF  FF FF FF F3 FF FF C7 0B   "......~........."
+  FFFF3   FE 00 00 0F FF 00 00 FF  FF FF FF FF FF            "............."
+: d fffc3
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FFFC3   0F FF FF FF FF FF FF FC  FB FF FF 7F FD FF FF FF   "................"
+  FFFD3   FF FF FF F1 FF FF FF 00  F0 00 00 1F 1F 00 00 00   "................"
+  FFFE3   00 00 00 00 00 00 7E FF  FF FF FF F3 FF FF C7 0B   "......~........."
+  FFFF3   FE 00 00 0F FF 00 00 FF  FF FF FF FF FF            "............."
+: d fffc3
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FFFC3   01 FF FF FF FF FF FF FC  FB FF FF 7F FD FF FF FF   "................"
+  FFFD3   FF FF FF F1 FF FF FF 00  F0 00 00 1F 1F 00 00 00   "................"
+  FFFE3   00 00 00 00 00 00 7E FF  FF FF FF F3 FF FF C7 0B   "......~........."
+  FFFF3   FE 00 00 0F FF 00 00 FF  FF FF FF FF FF            "............."
+: d fffc3
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FFFC3   08 FF FF FF FF FF FF FC  FB FF FF 7F FD FF FF FF   "................"
+  FFFD3   FF FF FF F1 FF FF FF 00  F0 00 00 1F 1F 00 00 00   "................"
+  FFFE3   00 00 00 00 00 00 7E FF  FF FF FF F3 FF FF C7 0B   "......~........."
+  FFFF3   FE 00 00 0F FF 00 00 FF  FF FF FF FF FF            "............."
+:
