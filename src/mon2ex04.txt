@@ -1,0 +1,71 @@
+mon2ex04.txt
+s15023 岩崎悠紀
+
+1．課題
+モニタプログラムのコマンドで，８ビットDIPスイッチのビット パタンを読み取れていることを確かめてみよう。
+mコマンドで，fffc1に00を設定しP2を入力に設定する。
+mコマンドで，fffd8にffを設定し，P2のプルアップコントロールを有効にする。
+dコマンドで，fffc3を表示して8ビットDIPスイッチの状態と対応を考察しなさい。
+8ビットDIPスイッチのON-OFFパタンを変化させて，
+dコマンドで，fffc3を表示して8ビットDIPスイッチの状態と対応を考察しなさい。
+さらに何回か8ビットDIPスイッチのON-OFFパタンを変化させながら，
+dコマンドで，fffc3を表示して8ビットDIPスイッチの状態と対応を考察しなさい。
+
+なお，fffc1はWriteOnlyレジスタなので，モニタプログラムで表示しても，その時のレジスタの 値を正しく
+表示することはできない。
+
+レポートでは，8ビットDIPスイッチの状態とfffc3の内容 の対応を5例ほど示しなさい。
+
+2．使用したプログラム
+　特になし
+
+3．興味を持ったこと
+　今回の実験で使用したアドレスはWriteOnlyレジスタとかいてあり，読みだそうとしてもゴミ（意味のない値）が入っていると書いてもあったが，なぜWriteOnlyなレジスタがあるのかに少し興味を持った．
+
+4．考察
+ーーーーーーーーーーーーーーー実行結果ーーーーーーーーーーーーーーー
+: m fffc1 00
+  ********  Invalid End Address  ********
+: m
+  ********  Invalid Parameter  ********
+: m fffc1
+  FFFC1   FF  ?  00
+  FFFC2   FF  ?  .
+: m fffd8
+  FFFD8   00  ?  ff
+  FFFD9   FF  ?  .
+: d fffc3
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FFFC3   FF FF FF FF EF FF FF FC  FB FF FF 7F FD FF FF FF   "................"
+  FFFD3   FF FF FF F1 FF FF FF 00  F0 00 00 1F 1F 00 00 00   "................"
+  FFFE3   00 00 00 00 00 00 7E FF  FF FF FF F3 FF FF C7 0B   "......~........."
+  FFFF3   FE 00 00 0F FF 00 00 FF  FF FF FF FF FF            "............."
+: d fffc3
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FFFC3   7F FF FF FF CF FF FF F8  FB FF FF 7F FD FF FF FF   "................"
+  FFFD3   FF FF FF F1 FF FF FF 00  F0 00 00 1F 1F 00 00 00   "................"
+  FFFE3   00 00 00 00 00 00 7E FF  FF FF FF F3 FF FF C7 0B   "......~........."
+  FFFF3   FE 00 00 0F FF 00 00 FF  FF FF FF FF FF            "............."
+: d fffc3
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FFFC3   0F FF FF FF FF FF FF FC  FB FF FF 7F FD FF FF FF   "................"
+  FFFD3   FF FF FF F1 FF FF FF 00  F0 00 00 1F 1F 00 00 00   "................"
+  FFFE3   00 00 00 00 00 00 7E FF  FF FF FF F3 FF FF C7 0B   "......~........."
+  FFFF3   FE 00 00 0F FF 00 00 FF  FF FF FF FF FF            "............."
+: d fffc3
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FFFC3   01 FF FF FF FF FF FF FC  FB FF FF 7F FD FF FF FF   "................"
+  FFFD3   FF FF FF F1 FF FF FF 00  F0 00 00 1F 1F 00 00 00   "................"
+  FFFE3   00 00 00 00 00 00 7E FF  FF FF FF F3 FF FF C7 0B   "......~........."
+  FFFF3   FE 00 00 0F FF 00 00 FF  FF FF FF FF FF            "............."
+: d fffc3
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FFFC3   08 FF FF FF FF FF FF FC  FB FF FF 7F FD FF FF FF   "................"
+  FFFD3   FF FF FF F1 FF FF FF 00  F0 00 00 1F 1F 00 00 00   "................"
+  FFFE3   00 00 00 00 00 00 7E FF  FF FF FF F3 FF FF C7 0B   "......~........."
+  FFFF3   FE 00 00 0F FF 00 00 FF  FF FF FF FF FF            "............."
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+　この実行結果により，8ビットスイッチは，FFFC3の1Byteの中に1ビットずつ情報が書いてあることが理解できた．また，8ビットスイッチでのONは実際のメモリの値では0になっており，逆にOFFの場合に1になっていた．
+
+5．まとめ
+　今回の実験により，8ビットスイッチの実際の中身を見ることができた．これにより，実際には8ビットスイッチがどの王になっているかが理解できた．
