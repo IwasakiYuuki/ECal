@@ -1,0 +1,104 @@
+: da ff200 ff277
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF200   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+  FF206   79010000              MOV.W      #H'0000:16,R1
+  FF20A   79020000              MOV.W      #H'0000:16,R2
+  FF20E   79030000              MOV.W      #H'0000:16,R3
+  FF212   6B21000FF800          MOV.W      @H'FF800:24,R1
+  FF218   6B22000FF802          MOV.W      @H'FF802:24,R2
+  FF21E   79210000              CMP.W      #H'0000:16,R1
+  FF222   58D00012              BLT        FF238:16
+  FF226   79220000              CMP.W      #H'0000:16,R2
+  FF22A   58D00014              BLT        FF242:16
+  FF22E   0913                  ADD.W      R1,R3
+  FF230   1B52                  DEC.W      #1,R2
+  FF232   46FA                  BNE        FF22E:8
+  FF234   58000038              BRA        FF270:16
+  FF238   1711                  NOT.W      R1
+  FF23A   79110001              ADD.W      #H'0001:16,R1
+  FF23E   58000006              BRA        FF248:16
+  FF242   1712                  NOT.W      R2
+  FF244   79120001              ADD.W      #H'0001:16,R2
+  FF248   79220000              CMP.W      #H'0000:16,R2
+  FF24C   58D00010              BLT        FF260:16
+  FF250   0913                  ADD.W      R1,R3
+  FF252   1B52                  DEC.W      #1,R2
+  FF254   46FA                  BNE        FF250:8
+  FF256   1713                  NOT.W      R3
+  FF258   79130001              ADD.W      #H'0001:16,R3
+  FF25C   58000010              BRA        FF270:16
+  FF260   1712                  NOT.W      R2
+  FF262   79120001              ADD.W      #H'0001:16,R2
+  FF266   0913                  ADD.W      R1,R3
+  FF268   1B52                  DEC.W      #1,R2
+  FF26A   46FA                  BNE        FF266:8
+  FF26C   58000000              BRA        FF270:16
+  FF270   6BA3000FF804          MOV.W      R3,@H'FF804:24
+  FF276   40FE                  BRA        FF276:8
+: b ff276
+: m ff800
+  FF800   FF  ?  00
+  FF801   56  ?  aa
+  FF802   00  ?  00
+  FF803   BB  ?  bb
+  FF804   83  ?  .
+: .pc
+  PC=0FF200  ?  .
+: g
+  Break at PC=FF276
+  PC=0FF276  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=000000AA  ER2=00000000  ER3=00007C2E
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ff805
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   00 AA 00 BB 7C 2E                                  "....|."
+: m ff800
+  FF800   00  ?  ff
+  FF801   AA  ?  56
+  FF802   00  ?  .
+: .pc
+  PC=0FF276  ?  ff200
+  CCR=80  ?  .
+: g
+  Break at PC=FF276
+  PC=0FF276  CCR=88:I...N...  SP=000FFF00
+  ER0=00000000  ER1=000000AA  ER2=00000000  ER3=000083D2
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ff805
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   FF 56 00 BB 83 D2                                  ".V...."
+: m ff800
+  FF800   FF  ?  00
+  FF801   56  ?  aa
+  FF802   00  ?  ff
+  FF803   BB  ?  45
+  FF804   83  ?  .
+: .pc
+  PC=0FF276  ?  ff200
+  CCR=88  ?  .
+: g
+  Break at PC=FF276
+  PC=0FF276  CCR=88:I...N...  SP=000FFF00
+  ER0=00000000  ER1=000000AA  ER2=00000000  ER3=000083D2
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff8000 ff805
+  ********  Invalid Parameter  ********
+: d ff800 ff805
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   00 AA FF 45 83 D2                                  "...E.."
+: m ff800
+  FF800   00  ?  ff
+  FF801   AA  ?  56
+  FF802   FF  ?  .
+: .pc
+  PC=0FF276  ?  ff200
+  CCR=88  ?  .
+: g
+  Break at PC=FF276
+  PC=0FF276  CCR=80:I.......  SP=000FFF00
+  ER0=00000000  ER1=000000AA  ER2=00000000  ER3=00007C2E
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ff805
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   FF 56 FF 45 7C 2E                                  ".V.E|."
+:
