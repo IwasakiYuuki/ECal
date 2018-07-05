@@ -1,0 +1,181 @@
+          .CPU        300HA
+          .EXPORT     _x00
+          .EXPORT     _x10
+          .EXPORT     _x0
+          .EXPORT     _x1
+          .EXPORT     _x2
+          .EXPORT     _main
+          .SECTION    P,CODE,ALIGN=2
+    	  .SECTION A,DATA,LOCATE=H'0FF030
+    	  .DATA.L H'0FF200  ;リセットベクトル
+
+    	  .SECTION P,CODE,LOCATE=H'0FF200
+;*** File myTest.c  , Line 6     ; block
+_main:                           ; function: main
+;*** File myTest.c  , Line 7     ; block
+          MOV.L       #_x2:32,ER4
+          MOV.L       #_x0:32,ER5
+          MOV.L       #_x1:32,ER6
+;*** File myTest.c  , Line 11    ; expression statement
+          MOV.W       @_x00:24,R0
+          MOV.W       R0,@ER5
+;*** File myTest.c  , Line 13    ; expression statement
+          MOV.W       @_x10:24,R0
+          MOV.W       R0,R2
+          MOV.W       R0,@ER6
+;*** File myTest.c  , Line 14    ; if
+          MOV.W       @ER5,R0
+          BLE         L65:8
+;*** File myTest.c  , Line 14    ; block
+;*** File myTest.c  , Line 15    ; if
+          MOV.W       @ER6,R0
+          BLE         L66:8
+;*** File myTest.c  , Line 15    ; block
+;*** File myTest.c  , Line 16    ; expression statement
+          SUB.W       E0,E0
+          BRA         L68:8
+L66:                              
+;*** File myTest.c  , Line 17    ; block
+;*** File myTest.c  , Line 18    ; expression statement
+          MOV.W       #1:16,E0
+;*** File myTest.c  , Line 19    ; expression statement
+          MOV.W       @ER6,R0
+          NEG.W       R0
+          MOV.W       R0,@ER6
+          BRA         L68:8
+L65:                              
+;*** File myTest.c  , Line 21    ; block
+;*** File myTest.c  , Line 22    ; if
+          MOV.W       @ER6,R0
+          BLE         L69:8
+;*** File myTest.c  , Line 22    ; block
+;*** File myTest.c  , Line 23    ; expression statement
+          MOV.W       #2:16,E0
+;*** File myTest.c  , Line 24    ; expression statement
+          MOV.W       @ER5,R0
+          NEG.W       R0
+          MOV.W       R0,@ER5
+          BRA         L70:8
+L69:                              
+;*** File myTest.c  , Line 25    ; block
+;*** File myTest.c  , Line 26    ; expression statement
+          MOV.W       #3:16,E0
+;*** File myTest.c  , Line 27    ; expression statement
+          MOV.W       @ER6,R0
+          NEG.W       R0
+          MOV.W       R0,@ER6
+;*** File myTest.c  , Line 28    ; expression statement
+          MOV.W       @ER5,R0
+          NEG.W       R0
+          MOV.W       R0,@ER5
+;*** File myTest.c  , Line 29    ; expression statement
+          MOV.W       R2,R0
+          NEG.W       R0
+          MOV.W       R0,R2
+L70:                              
+L68:                              
+;*** File myTest.c  , Line 32    ; expression statement
+          SUB.W       R0,R0
+          MOV.W       R0,@ER4
+;*** File myTest.c  , Line 33    ; expression statement
+          MOV.W       #1:16,E1
+;*** File myTest.c  , Line 34    ; while
+          BRA         L72:8
+L71:                              
+;*** File myTest.c  , Line 34    ; block
+;*** File myTest.c  , Line 35    ; expression statement
+          MOV.W       @ER6,R0
+          SHLL.W      R0
+          MOV.W       R0,@ER6
+;*** File myTest.c  , Line 36    ; expression statement
+          SHLL.W      E1
+L72:                              
+;*** File myTest.c  , Line 34    ; expression statement
+          MOV.W       @ER6,R0
+          MOV.W       @ER5,R1
+          CMP.W       R1,R0
+          BLT         L71:8
+;*** File myTest.c  , Line 38    ; while
+          BRA         L74:8
+L73:                              
+;*** File myTest.c  , Line 38    ; block
+;*** File myTest.c  , Line 39    ; if
+          MOV.W       @ER6,R0
+          MOV.W       @ER5,R1
+          CMP.W       R1,R0
+          BGT         L75:8
+;*** File myTest.c  , Line 39    ; block
+;*** File myTest.c  , Line 40    ; expression statement
+          SUB.W       R0,R1
+          MOV.W       R1,@ER5
+;*** File myTest.c  , Line 41    ; expression statement
+          MOV.W       @ER4,R0
+          ADD.W       E1,R0
+          MOV.W       R0,@ER4
+L75:                              
+;*** File myTest.c  , Line 43    ; expression statement
+          MOV.W       @ER6,R0
+          SHAR.W      R0
+          MOV.W       R0,@ER6
+;*** File myTest.c  , Line 44    ; expression statement
+          SHAR.W      E1
+L74:                              
+;*** File myTest.c  , Line 38    ; expression statement
+          MOV.W       E1,E1
+          BNE         L73:8
+;*** File myTest.c  , Line 47    ; if
+          MOV.W       E0,E0
+          BEQ         L77:8
+;*** File myTest.c  , Line 47    ; block
+;*** File myTest.c  , Line 48    ; if
+          CMP.W       #1:16,E0
+          BNE         L78:8
+;*** File myTest.c  , Line 48    ; block
+;*** File myTest.c  , Line 49    ; expression statement
+          MOV.W       @ER4,R0
+          NEG.W       R0
+          MOV.W       R0,@ER4
+          BRA         L79:8
+L78:                              
+;*** File myTest.c  , Line 50    ; block
+;*** File myTest.c  , Line 51    ; if
+          MOV.W       @ER5,R0
+          BLE         L80:8
+;*** File myTest.c  , Line 51    ; block
+;*** File myTest.c  , Line 52    ; expression statement
+          MOV.W       R2,R0
+          MOV.W       @ER5,R1
+          SUB.W       R1,R0
+          MOV.W       R0,@ER5
+;*** File myTest.c  , Line 53    ; expression statement
+          MOV.W       @ER4,R0
+          INC.W       #1,R0
+          MOV.W       R0,@ER4
+L80:                              
+;*** File myTest.c  , Line 55    ; if
+          CMP.W       #2:16,E0
+          BNE         L81:8
+;*** File myTest.c  , Line 55    ; block
+;*** File myTest.c  , Line 56    ; expression statement
+          MOV.W       @ER4,R0
+          NEG.W       R0
+          MOV.W       R0,@ER4
+L81:                              
+L79:                              
+L77:                              
+;*** File myTest.c  , Line 59    ; return
+          SUB.W       R0,R0
+;*** File myTest.c  , Line 60    ; block
+          .SECTION    B,DATA,ALIGN=2
+          .SECTION D,DATA,LOCATE=H'0FF800
+_x00:                            ; static: x00
+          .RES.W      1
+_x10:                            ; static: x10
+          .RES.W      1
+_x0:                             ; static: x0
+          .RES.W      1
+_x1:                             ; static: x1
+          .RES.W      1
+_x2:                             ; static: x2
+          .RES.W      1
+          .END
