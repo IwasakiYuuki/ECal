@@ -1,0 +1,151 @@
+: da ff200 ff2cf
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF200   7A04000FF804          MOV.L      #H'000FF804:32,ER4
+  FF206   7A05000FF806          MOV.L      #H'000FF806:32,ER5
+  FF20C   7A06000FF808          MOV.L      #H'000FF808:32,ER6
+  FF212   6B20000FF800          MOV.W      @H'FF800:24,R0
+  FF218   69D0                  MOV.W      R0,@ER5
+  FF21A   6B20000FF802          MOV.W      @H'FF802:24,R0
+  FF220   0D02                  MOV.W      R0,R2
+  FF222   69E0                  MOV.W      R0,@ER6
+  FF224   6950                  MOV.W      @ER5,R0
+  FF226   4F14                  BLE        FF23C:8
+  FF228   6960                  MOV.W      @ER6,R0
+  FF22A   4F04                  BLE        FF230:8
+  FF22C   1988                  SUB.W      E0,E0
+  FF22E   4032                  BRA        FF262:8
+  FF230   79080001              MOV.W      #H'0001:16,E0
+  FF234   6960                  MOV.W      @ER6,R0
+  FF236   1790                  NEG.W      R0
+  FF238   69E0                  MOV.W      R0,@ER6
+  FF23A   4026                  BRA        FF262:8
+  FF23C   6960                  MOV.W      @ER6,R0
+  FF23E   4F0C                  BLE        FF24C:8
+  FF240   79080002              MOV.W      #H'0002:16,E0
+  FF244   6950                  MOV.W      @ER5,R0
+  FF246   1790                  NEG.W      R0
+  FF248   69D0                  MOV.W      R0,@ER5
+  FF24A   4016                  BRA        FF262:8
+  FF24C   79080003              MOV.W      #H'0003:16,E0
+  FF250   6960                  MOV.W      @ER6,R0
+  FF252   1790                  NEG.W      R0
+  FF254   69E0                  MOV.W      R0,@ER6
+  FF256   6950                  MOV.W      @ER5,R0
+  FF258   1790                  NEG.W      R0
+  FF25A   69D0                  MOV.W      R0,@ER5
+  FF25C   0D20                  MOV.W      R2,R0
+  FF25E   1790                  NEG.W      R0
+  FF260   0D02                  MOV.W      R0,R2
+  FF262   1900                  SUB.W      R0,R0
+  FF264   69C0                  MOV.W      R0,@ER4
+  FF266   79090001              MOV.W      #H'0001:16,E1
+  FF26A   4008                  BRA        FF274:8
+  FF26C   6960                  MOV.W      @ER6,R0
+  FF26E   1010                  SHLL.W     R0
+  FF270   69E0                  MOV.W      R0,@ER6
+  FF272   1019                  SHLL.W     E1
+  FF274   6960                  MOV.W      @ER6,R0
+  FF276   6951                  MOV.W      @ER5,R1
+  FF278   1D10                  CMP.W      R1,R0
+  FF27A   4DF0                  BLT        FF26C:8
+  FF27C   401A                  BRA        FF298:8
+  FF27E   6960                  MOV.W      @ER6,R0
+  FF280   6951                  MOV.W      @ER5,R1
+  FF282   1D10                  CMP.W      R1,R0
+  FF284   4E0A                  BGT        FF290:8
+  FF286   1901                  SUB.W      R0,R1
+  FF288   69D1                  MOV.W      R1,@ER5
+  FF28A   6940                  MOV.W      @ER4,R0
+  FF28C   0990                  ADD.W      E1,R0
+  FF28E   69C0                  MOV.W      R0,@ER4
+  FF290   6960                  MOV.W      @ER6,R0
+  FF292   1190                  SHAR.W     R0
+  FF294   69E0                  MOV.W      R0,@ER6
+  FF296   1199                  SHAR.W     E1
+  FF298   0D99                  MOV.W      E1,E1
+  FF29A   46E2                  BNE        FF27E:8
+  FF29C   0D88                  MOV.W      E0,E0
+  FF29E   472C                  BEQ        FF2CC:8
+  FF2A0   79280001              CMP.W      #H'0001:16,E0
+  FF2A4   4608                  BNE        FF2AE:8
+  FF2A6   6940                  MOV.W      @ER4,R0
+  FF2A8   1790                  NEG.W      R0
+  FF2AA   69C0                  MOV.W      R0,@ER4
+  FF2AC   401E                  BRA        FF2CC:8
+  FF2AE   6950                  MOV.W      @ER5,R0
+  FF2B0   4F0E                  BLE        FF2C0:8
+  FF2B2   0D20                  MOV.W      R2,R0
+  FF2B4   6951                  MOV.W      @ER5,R1
+  FF2B6   1910                  SUB.W      R1,R0
+  FF2B8   69D0                  MOV.W      R0,@ER5
+  FF2BA   6940                  MOV.W      @ER4,R0
+  FF2BC   0B50                  INC.W      #1,R0
+  FF2BE   69C0                  MOV.W      R0,@ER4
+  FF2C0   79280002              CMP.W      #H'0002:16,E0
+  FF2C4   4606                  BNE        FF2CC:8
+  FF2C6   6940                  MOV.W      @ER4,R0
+  FF2C8   1790                  NEG.W      R0
+  FF2CA   69C0                  MOV.W      R0,@ER4
+  FF2CC   1900                  SUB.W      R0,R0
+  FF2CE   40FE                  BRA        FF2CE:8
+: b ff2ce
+: m ff800
+  FF800   DF  ?  00
+  FF801   EF  ?  0b
+  FF802   F7  ?  00
+  FF803   7F  ?  04
+  FF804   F7  ?  .
+: g
+  Break at PC=FF2CE
+  PC=0FF2CE  CCR=84:I....Z..  SP=000FFF00
+  ER0=00000000  ER1=00000003  ER2=00000004  ER3=00000000
+  ER4=000FF804  ER5=000FF806  ER6=000FF808  ER7=000FFF00
+: d ff800 ff807
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   00 0B 00 04 00 02 00 03                            "........"
+: .pc ff200
+: m ff800
+  FF800   00  ?  ff
+  FF801   0B  ?  f5
+  FF802   00  ?  .
+: g
+  Break at PC=FF2CE
+  PC=0FF2CE  CCR=84:I....Z..  SP=000FFF00
+  ER0=00020000  ER1=00000003  ER2=00000004  ER3=00000000
+  ER4=000FF804  ER5=000FF806  ER6=000FF808  ER7=000FFF00
+: d ff800 ff807
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   FF F5 00 04 FF FD 00 01                            "........"
+: .pc
+  PC=0FF2CE  ?  ff200
+  CCR=84  ?  .
+: m ff800
+  FF800   FF  ?  00
+  FF801   F5  ?  0b
+  FF802   00  ?  ff
+  FF803   04  ?  fc
+  FF804   FF  ?  .
+: g
+  Break at PC=FF2CE
+  PC=0FF2CE  CCR=84:I....Z..  SP=000FFF00
+  ER0=00010000  ER1=00000003  ER2=0000FFFC  ER3=00000000
+  ER4=000FF804  ER5=000FF806  ER6=000FF808  ER7=000FFF00
+: d ff800 ff807
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   00 0B FF FC FF FE 00 03                            "........"
+: m ff800
+  FF800   00  ?  ff
+  FF801   0B  ?  f5
+  FF802   FF  ?  .
+: .pc
+  PC=0FF2CE  ?  ff200
+  CCR=84  ?  .
+: g
+  Break at PC=FF2CE
+  PC=0FF2CE  CCR=84:I....Z..  SP=000FFF00
+  ER0=00030000  ER1=00000003  ER2=00000004  ER3=00000000
+  ER4=000FF804  ER5=000FF806  ER6=000FF808  ER7=000FFF00
+: d ff800 ff807
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   FF F5 FF FC 00 03 00 01                            "........"
+:
