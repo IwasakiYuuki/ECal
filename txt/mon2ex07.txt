@@ -1,0 +1,112 @@
+mon2ex07.txt
+s15023 岩崎悠紀
+
+１．課題
+FF200から機械語プログラムを置きなさい。
+FF800番地 - FF801番地に2バイトの値Aが，FF802番地 - FF803番地に2バイトの値Bがあ り，
+それぞれ正の整数であるとして，この2数の商（A/B）と余り（A%B）を求め，
+商をFF804番地 - FF805番地に，余りをFF806番地 - FF807番地に保存するプログラム。
+「（A - 余り）÷B＝商」の関係をもつこと。
+0による割り算は行わないものとする。
+ただしDIVで始まる割算命令を用いてはならない。
+
+２．使用したプログラム
+    .CPU 300HA
+     .SECTION A,DATA,LOCATE=H'0FF030
+     .DATA.L H'0FF200  ;ZbgxNg
+     
+    .SECTION P,CODE,LOCATE=H'0FF200
+    MOV.L	#H'FFF00,ER7  ;X^bN|C^Ýè
+    MOV.W	@H'FF800:24,R0
+    MOV.W	@H'FF802:24,R1
+    MOV.W	#0,R2
+L001:
+	INC.W	#1,R2
+	SUB.L	ER1,ER0
+	CMP.L	ER0,ER1
+	BLT		L001:8
+
+	MOV.W	R2,@H'FF804:24
+	MOV.W	R0,@H'FF806:24
+	.END
+
+３．実行結果
+: da ff200
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF200   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+  FF206   6B20000FF800          MOV.W      @H'FF800:24,R0
+  FF20C   6B21000FF802          MOV.W      @H'FF802:24,R1
+  FF212   79020000              MOV.W      #H'0000:16,R2
+  FF216   0B52                  INC.W      #1,R2
+  FF218   1A90                  SUB.L      ER1,ER0
+  FF21A   1F81                  CMP.L      ER0,ER1
+  FF21C   4DF8                  BLT        FF216:8
+  FF21E   6BA2000FF804          MOV.W      R2,@H'FF804:24
+  FF224   6BA0000FF806          MOV.W      R0,@H'FF806:24
+  FF22A   FFF9                  MOV.B      #H'F9:8,R7L
+  FF22C   5F04                  JSR        @@H'04:8
+  FF22E   7FFF                  .DATA.W    H'7FFF
+  FF230   AFFF                  CMP.B      #H'FF:8,R7L
+  FF232   BFFF                  SUBX       #H'FF:8,R7L
+  FF234   FFBF                  MOV.B      #H'BF:8,R7L
+: b ff22a
+: .pc
+  PC=0FF200  ?  .
+: m ff800
+  FF800   AA  ?  aa
+  FF801   AA  ?  aa
+  FF802   00  ?  00
+  FF803   BB  ?  bb
+  FF804   00  ?  .
+: g
+  Break at PC=FF22A
+  PC=0FF22A  CCR=80:I.......  SP=000FFF00
+  ER0=00000077  ER1=000000BB  ER2=000000E9  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ff807
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   AA AA 00 BB 00 E9 00 77                            ".......w"
+: m ff800
+  FF800   AA  ?  00
+  FF801   AA  ?  03
+  FF802   00  ?  00
+  FF803   BB  ?  02
+  FF804   00  ?  .
+: .pc
+  PC=0FF22A  ?  ff200
+  CCR=80  ?  .
+: g
+  Break at PC=FF22A
+  PC=0FF22A  CCR=80:I.......  SP=000FFF00
+  ER0=00000001  ER1=00000002  ER2=00000001  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ff807
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   00 03 00 02 00 01 00 01                            "........"
+: m ff800
+  FF800   00  ?  10
+  FF801   03  ?  00
+  FF802   00  ?  00
+  FF803   02  ?  33
+  FF804   00  ?  .
+: .pc
+  PC=0FF22A  ?  ff200
+  CCR=80  ?  .
+: g
+  Break at PC=FF22A
+  PC=0FF22A  CCR=80:I.......  SP=000FFF00
+  ER0=00000010  ER1=00000033  ER2=00000050  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ff807
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   10 00 00 33 00 50 00 10                            "...3.P.."
+:
+
+４．考察
+　実験結果より，このプログラムは意図した動作をしているということが理解できた．
+　また，手計算で同じ計算をしたが，プログラムの結果と同じになった．
+　また，始めはR0とR1のみを使用していたため，先頭ビットが１になってしまっていたためなのか，うまく動作しなかったが，ER0とER1を使用したら，意図した動作をするようになった．
+
+５．まとめ
+　今回の実験により，CMP命令やBGT命令，BLT命令を使えるようになった．
+　また，先頭ビットが１になっていると思わぬ動作をしてしまう場合があるということが理解できた．

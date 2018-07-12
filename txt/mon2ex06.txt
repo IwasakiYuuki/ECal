@@ -1,0 +1,160 @@
+mon2ex06.txt
+s15023 岩崎悠紀
+
+１．課題
+FF200から機械語プログラムを置きなさい。
+FF800番地 - FF801番地に2バイトの値が，FF802番地 - FF803番地に2バイトの値があり，
+それぞれ正の整数であるとして，この2数の積を求め，FF804番地 - FF805番地に保存するプログラム。
+掛け算の結果がオーバーフローしても構わない。
+ただしMULで始まる掛け算命令を用いてはならない。
+
+プログラム本体および以下を報告しなさい。
+プログラムが正しく動作していることを検証し，検証の様子も報告しなさい。
+検証では2×3，0x22×0x33，0xaa×0xbbを行い，手計算の値と比較しなさい。
+実行結果を貼り付けるだけでなく，まとめのところで実行検証結果についてまとめなさい。
+
+２．使用したプログラム
+    .CPU 300HA
+     .SECTION A,DATA,LOCATE=H'0FF030
+     .DATA.L H'0FF200  ;ZbgxNg
+     
+    .SECTION P,CODE,LOCATE=H'0FF200
+    MOV.L	#H'FFF00,ER7  ;X^bN|C^Ýè
+    MOV.W	@H'FF800:24,R0
+    MOV.W	@H'FF802:24,R1
+    MOV.W	#0,R2
+L001:
+	ADD.W	R0,R2
+	DEC.W	#1,R1
+	BNE		L001:8
+
+	MOV.W	R2,@H'FF804:24
+	.END
+
+３．実行結果
+: da ff200
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF200   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+  FF206   6B20000FF800          MOV.W      @H'FF800:24,R0
+  FF20C   6B21000FF802          MOV.W      @H'FF802:24,R1
+  FF212   79020000              MOV.W      #H'0000:16,R2
+  FF216   0902                  ADD.W      R0,R2
+  FF218   1B51                  DEC.W      #1,R1
+  FF21A   46FA                  BNE        FF216:8
+  FF21C   6BA2000FF804          MOV.W      R2,@H'FF804:24
+  FF222   7FFD                  .DATA.W    H'7FFD
+  FF224   FFFF                  MOV.B      #H'FF:8,R7L
+  FF226   FFFF                  MOV.B      #H'FF:8,R7L
+  FF228   EFFF                  AND.B      #H'FF:8,R7L
+  FF22A   FFFB                  MOV.B      #H'FB:8,R7L
+  FF22C   DF7F                  XOR.B      #H'7F:8,R7L
+  FF22E   FFFF                  MOV.B      #H'FF:8,R7L
+  FF230   A5FF                  CMP.B      #H'FF:8,R5H
+: f ff800 ff802 0x02
+  ********  Invalid Parameter  ********
+: f ff800
+  ********  Invalid Parameter  ********
+: f ff800 0x2
+  ********  Invalid Parameter  ********
+: m ff800
+  FF800   DF  ?  00
+  FF801   EF  ?  02
+  FF802   F7  ?  00
+  FF803   7F  ?  03
+  FF804   F7  ?  .
+: d ff800 ff804
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   00 02 00 03 F7                                     "....."
+: .pc
+  PC=0FF200  ?  .
+: g
+
+
+ H8/3048 Series Advanced Mode Monitor Ver. 3.0A
+ Copyright (C) 2003 Renesas Technology Corp.
+
+: da ff200
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF200   6800                  MOV.B      @ER0,R0H
+  FF202   0A58                  .DATA.W    H'0A58
+  FF204   60E5                  BSET       R6L,R5H
+  FF206   0C68                  MOV.B      R6H,R0L
+  FF208   6847                  MOV.B      @ER4,R7H
+  FF20A   085C                  ADD.B      R5H,R4L
+  FF20C   000C                  .DATA.W    H'000C
+  FF20E   F601                  MOV.B      #H'01:8,R6H
+  FF210   0069                  .DATA.W    H'0069
+  FF212   F4F0                  MOV.B      #H'F0:8,R4H
+  FF214   426A                  BHI        FF280:8
+  FF216   A000                  CMP.B      #H'00:8,R0H
+  FF218   FFEF                  MOV.B      #H'EF:8,R7L
+  FF21A   E25C                  AND.B      #H'5C:8,R2H
+  FF21C   00FA                  .DATA.W    H'00FA
+  FF21E   221E                  MOV.B      @H'FFF1E:8,R2H
+: l
+  Top Address=FF030
+  End Address=FF221
+: m ff800
+  FF800   FF  ?  00
+  FF801   FF  ?  02
+  FF802   FF  ?  00
+  FF803   FF  ?  03
+  FF804   FF  ?  .
+: b ff221
+  ********  Invalid Parameter  ********
+: b ff221
+  ********  Invalid Parameter  ********
+: b ff222
+: g
+  Break at PC=FF222
+  PC=0FF222  CCR=80:I.......  SP=000FFF00
+  ER0=00000002  ER1=00000000  ER2=00000006  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ff805
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   00 02 00 03 00 06                                  "......"
+: .pc
+  PC=0FF222  ?  ff200
+  CCR=80  ?  .
+: m ff800
+  FF800   00  ?  00
+  FF801   02  ?  22
+  FF802   00  ?  00
+  FF803   03  ?  33
+  FF804   00  ?  .
+: b ff222
+  ********  Duplicate Breakpoint  ********
+: g
+  Break at PC=FF222
+  PC=0FF222  CCR=80:I.......  SP=000FFF00
+  ER0=00000022  ER1=00000000  ER2=000006C6  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ff805
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   00 22 00 33 06 C6                                  ".".3.."
+: .pc
+  PC=0FF222  ?  ff200
+  CCR=80  ?  .
+: m ff800
+  FF800   00  ?  00
+  FF801   22  ?  aa
+  FF802   00  ?  00
+  FF803   33  ?  bb
+  FF804   06  ?  .
+: g
+  Break at PC=FF222
+  PC=0FF222  CCR=80:I.......  SP=000FFF00
+  ER0=000000AA  ER1=00000000  ER2=00007C2E  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ff805
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   00 AA 00 BB 7C 2E                                  "....|."
+:
+
+４．考察
+　実験結果より，プログラムの意図した，FF800-FF801,FF802-FF803のかけ算の結果をFF804-FF805に入れるというのが正常に動作しているのが確認できた．
+　また，手計算でも計算を行ったが，プログラムの計算結果を同じになった．
+
+５．まとめ
+　今回の実験により，かけ算を関数を使うのではなく足し算のループの処理で動かすことができるということが理解できた．
+
