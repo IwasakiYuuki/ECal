@@ -1,0 +1,71 @@
+: da ff200 ff237
+  <ADDR>  <CODE>                <MNEMONIC> <OPERAND>
+  FF200   7A07000FFF00          MOV.L      #H'000FFF00:32,ER7
+  FF206   6B20000FF800          MOV.W      @H'FF800:24,R0
+  FF20C   6B21000FF802          MOV.W      @H'FF802:24,R1
+  FF212   7A0200000000          MOV.L      #H'00000000:32,ER2
+  FF218   5E0FF224              JSR        @H'FF224:24
+  FF21C   6BA0000FF804          MOV.W      R0,@H'FF804:24
+  FF222   40FE                  BRA        FF222:8
+  FF224   01006DF2              PUSH.L     ER2
+  FF228   0B72                  INC.L      #1,ER2
+  FF22A   1A90                  SUB.L      ER1,ER0
+  FF22C   1F81                  CMP.L      ER0,ER1
+  FF22E   4DF8                  BLT        FF228:8
+  FF230   0FA0                  MOV.L      ER2,ER0
+  FF232   01006D72              POP.L      ER2
+  FF236   5470                  RTS
+: m ff800
+  FF800   DF  ?  00
+  FF801   EF  ?  03
+  FF802   F7  ?  00
+  FF803   7F  ?  02
+  FF804   F7  ?  .
+: b ff222
+: g
+  Break at PC=FF222
+  PC=0FF222  CCR=80:I.......  SP=000FFF00
+  ER0=00000001  ER1=00000002  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ff805
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   00 03 00 02 00 01                                  "......"
+: m ff800
+  FF800   00  ?  01
+  FF801   03  ?  00
+  FF802   00  ?  .
+: m ff800
+  FF800   01  ?  10
+  FF801   00  ?  00
+  FF802   00  ?  00
+  FF803   02  ?  33
+  FF804   00  ?  .
+: .pc
+  PC=0FF222  ?  ff200
+  CCR=80  ?  .
+: g
+  Break at PC=FF222
+  PC=0FF222  CCR=80:I.......  SP=000FFF00
+  ER0=00000050  ER1=00000033  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ff805
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   10 00 00 33 00 50                                  "...3.P"
+: m ff800
+  FF800   10  ?  aa
+  FF801   00  ?  aa
+  FF802   00  ?  00
+  FF803   33  ?  bb
+  FF804   00  ?  .
+: .pc
+  PC=0FF222  ?  ff200
+  CCR=80  ?  .
+: g
+  Break at PC=FF222
+  PC=0FF222  CCR=80:I.......  SP=000FFF00
+  ER0=000000E9  ER1=000000BB  ER2=00000000  ER3=00000000
+  ER4=00000000  ER5=00000000  ER6=00000000  ER7=000FFF00
+: d ff800 ff805
+  <ADDR>                  <  D  A  T  A  >                     < ASCII CODE >
+  FF800   AA AA 00 BB 00 E9                                  "......"
+:
